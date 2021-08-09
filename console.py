@@ -142,10 +142,10 @@ class HBNBCommand(cmd.Cmd):
             print(attributes[key])
             print(attributes)
 
-        # new_instance = HBNBCommand.classes[args[0]](**attributes)
-        # storage.save()
-        # print(new_instance.id)
-        # storage.save()
+        new_instance = HBNBCommand.classes[args[0]](**attributes)
+        storage.save()
+        print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -315,6 +315,8 @@ class HBNBCommand(cmd.Cmd):
 
         # retrieve dictionary of current objects
         new_dict = storage.all()[key]
+        print(new_dict)
+        print(type(new_dict))
 
         # iterate through attr names and values
         for i, att_name in enumerate(args):
