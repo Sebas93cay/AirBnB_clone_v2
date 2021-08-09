@@ -316,8 +316,6 @@ class HBNBCommand(cmd.Cmd):
 
         # retrieve dictionary of current objects
         new_dict = storage.all()[key]
-        print(new_dict)
-        print(type(new_dict))
 
         # iterate through attr names and values
         for i, att_name in enumerate(args):
