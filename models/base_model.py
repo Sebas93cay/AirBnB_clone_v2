@@ -8,6 +8,7 @@ from models import storage
 
 Base = declarative_base()
 
+
 class BaseModel:
     """A base class for all hbnb models"""
 
@@ -22,7 +23,6 @@ class BaseModel:
     updated_at = Column(DateTime,
                         nullable=False,
                         default=datetime.utcnow())
-
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
@@ -52,7 +52,7 @@ class BaseModel:
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
-        
+
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
@@ -68,4 +68,6 @@ class BaseModel:
         return dictionary
 
     def delete(self):
-        del storage.all()[(str(type(self)).split('.')[-1]).split('\'')[0] + "." + self.id]
+        key = (str(type(self)).split('.')[-1]).split('\'')[0] + "." + self.id
+        if key in storage.all():
+            del storage.all()[key]
