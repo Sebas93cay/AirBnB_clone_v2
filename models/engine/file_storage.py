@@ -57,6 +57,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """Deletes obj from __objects if it exists"""
         from models.base_model import BaseModel
         if obj is not None:
             if(issubclass(type(obj), BaseModel)):
