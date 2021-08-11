@@ -3,6 +3,14 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
+import models
+
+place_amenity = Table('association', Base.metadata,
+                      Column('place_id', String(60), ForeignKey(
+                          'places.id'), primary_key=True, nullable=False),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -35,27 +43,22 @@ class Place(BaseModel, Base):
                        default=0)
     amenity_ids = []
 
-    place_amenity = Table('association', Base.metadata,
-                          Column('place_id', String(60), ForeignKey(
-                              'places.id'), primary_key=True, nullable=False),
-                          Column('amenity_id', String(60),
-                                 ForeignKey('amenities.id'),
-                                 primary_key=True, nullable=False))
+    if models.STORAGE_TYPE == 'db':
 
-    amenities = relationship("Amenity", secondary="place_amenity",
-                             viewonly=False)
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False)
+    else:
+        @property
+        def amenities(self):
+            """
+            return amenity_id
+            """
+            return self.amenity_ids
 
-    @property
-    def amenities(self):
-        """
-        return amenity_id
-        """
-        return self.amenity_ids
-
-    @amenities.setter
-    def amenities(self, amenity_ids):
-        """
-        update amenity list
-        """
-        if type(amenity_ids).__name__ == 'Amenity':
-            self.amenity_ids.append(amenity_ids)
+        @amenities.setter
+        def amenities(self, amenity):
+            """
+            update amenity list
+            """
+            if type(amenity).__name__ == 'Amenity':
+                self.amenity_ids.append(amenity.id)

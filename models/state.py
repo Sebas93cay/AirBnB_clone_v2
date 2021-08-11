@@ -11,9 +11,10 @@ class State(BaseModel, Base):
 
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
+    import models
     if models.STORAGE_TYPE == 'db':
         cities = relationship("City", backref="state",
-                              cascade="all, delete, delelete-orphan")
+                              cascade="all, delete, delete-orphan")
     else:
         @property
         def cities(self):

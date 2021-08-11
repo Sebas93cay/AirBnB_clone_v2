@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+import models
 
 
 class User(BaseModel, Base):
@@ -16,8 +17,9 @@ class User(BaseModel, Base):
                         nullable=True)
     last_name = Column(String(128),
                        nullable=True)
-    places = relationship("Place", backref="user",
-                          cascade="all, delelete-orphan")
+    if models.STORAGE_TYPE == 'db':
+        places = relationship("Place", backref="user",
+                              cascade="all, delete-orphan")
 
-    reviews = relationship("Review", backref="user",
-                           cascade="all, delelete-orphan")
+        reviews = relationship("Review", backref="user",
+                               cascade="all, delete-orphan")
