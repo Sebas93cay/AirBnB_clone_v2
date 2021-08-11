@@ -10,43 +10,45 @@ import os
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
+
 class DBStorage:
     """Data Base storage"""
     __engine: None
     __session: None
+
     def __init__(self):
         user = os.getenv('HBNB_MYSQL_USER')
         password = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
-        database =os.getenv('HBNB_MYSQL_DB')
+        database = os.getenv('HBNB_MYSQL_DB')
         environ = os.getenv('HBNB_ENV')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                                      .format(user,password,host, database),
-                                    pool_pre_ping=True)
+                                      .format(user, password, host, database),
+                                      pool_pre_ping=True)
         if environ == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """ All classes """
         dct = {}
+        all_classes = [State, City]
         if cls is None:
-            all_classes = ['User', 'State', 'City', 'Amenity', 'Place', 'Review']    
             for _cls in all_classes:
-                objs = self.__session.query(eval(_cls)())
+                objs = self.__session.query(_cls).all()
                 for obj in objs:
-                    key = obj.__class__.__name + '.' + obj._id
+                    key = obj.__class__.__name__ + '.' + obj.id
                     dct[key] = obj
         else:
             objs = self.__session.query(cls).all()
             for obj in objs:
-                key = obj.__class__.__name + '.' + obj._id
+                key = obj.__class__.__name__ + '.' + obj.id
                 dct[key] = obj
         return (dct)
 
     def new(self, obj):
         """Add new object"""
         self.__session.add(obj)
-    
+
     def save(self):
         """Confirm the changes to the database"""
         self.__session.commit()
