@@ -20,6 +20,7 @@ class Place(BaseModel, Base):
                      ForeignKey('cities.id'),
                      nullable=False)
     user_id = Column(String(60),
+                     ForeignKey('users.id'),
                      nullable=False)
     name = Column(String(128),
                   nullable=False)

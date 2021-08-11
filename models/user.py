@@ -19,7 +19,7 @@ class User(BaseModel, Base):
                        nullable=True)
     if models.STORAGE_TYPE == 'db':
         places = relationship("Place", backref="user",
-                              cascade="all, delete-orphan")
+                              cascade="all, delete, delete-orphan")
 
         reviews = relationship("Review", backref="user",
-                               cascade="all, delete-orphan")
+                               cascade="all, delete, delete-orphan")

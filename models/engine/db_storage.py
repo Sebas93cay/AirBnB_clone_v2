@@ -34,7 +34,7 @@ class DBStorage:
     def all(self, cls=None):
         """ All classes """
         dct = {}
-        all_classes = [State, City]
+        all_classes = [State, City, User, Amenity, Place, Review]
         if cls is None:
             for _cls in all_classes:
                 objs = self.__session.query(_cls).all()
