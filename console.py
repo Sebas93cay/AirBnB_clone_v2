@@ -219,6 +219,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
+        storage.reload()
         print_list = []
 
         if args:
@@ -232,7 +233,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             for k, v in storage.all().items():
                 print_list.append(str(v))
-        # print("imprimiendo lista")
         print(print_list)
 
     def help_all(self):
