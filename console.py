@@ -137,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
                 continue
             attributes[key] = value
 
-        print(type(storage))
+        # print(type(storage))
 
         new_instance = HBNBCommand.classes[args[0]]()
         new_instance.__dict__.update(attributes)
