@@ -34,12 +34,12 @@ class DBStorage:
             for _cls in all_classes:
                 objs = self.__session.query(eval(_cls)())
                 for obj in objs:
-                    key = obj.__class__.__name + '.' + obj._id
+                    key = obj.__class__.__name__ + '.' + obj.id
                     dct[key] = obj
         else:
             objs = self.__session.query(cls).all()
             for obj in objs:
-                key = obj.__class__.__name + '.' + obj._id
+                key = obj.__class__.__name__ + '.' + obj.id
                 dct[key] = obj
         return (dct)
 
