@@ -4,15 +4,16 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-import models
+
 
 
 class State(BaseModel, Base):
     """ State class """
+
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
     if models.STORAGE_TYPE == 'db':
-        cities = relationship("City", backref="state", cascade="delete")
+        cities = relationship("City", backref="state", cascade="all, delete, delelete-orphan")
     else:
         @property
         def cities(self):
@@ -23,3 +24,4 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     FS_cities.append(city)
             return FS_cities
+
