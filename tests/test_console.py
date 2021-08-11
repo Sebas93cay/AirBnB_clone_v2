@@ -19,11 +19,17 @@ class MyTestCase(unittest.TestCase):
     """
 
     def setUp(self):
+        """
+        set up the enviroment to read from stdout
+        """
         reader.readed = 0
         if os.path.isfile('file.json'):
             os.remove('file.json')
 
     def tearDown(self):
+        """
+        remove file.json when done with test
+        """
         if os.path.isfile('file.json'):
             os.remove('file.json')
 
@@ -51,6 +57,9 @@ class MyTestCase(unittest.TestCase):
                              ' show <className> <objectId>\n\n')
 
     def test_show_function(self):
+        """
+        test shwo function
+        """
         with patch('sys.stdout', new=StringIO()) as stdout:
             HBNBCommand().onecmd('create User')
             User_id = reader.read(stdout)[:-1]
@@ -60,6 +69,9 @@ class MyTestCase(unittest.TestCase):
 
     @unittest.skip("user.count() not implemented in this version")
     def test_count_function(self):
+        """
+        test count function
+        """
         with patch('sys.stdout', new=StringIO()) as stdout:
             HBNBCommand().onecmd('create User')
             User_id = reader.read(stdout)[:-1]
@@ -67,6 +79,9 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual(reader.read(stdout=stdout), '1\n')
 
     def test_kwargs_User(self):
+        """
+        test create User using kwargs
+        """
         with patch('sys.stdout', new=StringIO()) as stdout:
             HBNBCommand().onecmd('create User name="Juancho" age=34 averageScore=-3.6 extra="extra"__"')
             User_id = reader.read(stdout)[:-1]
