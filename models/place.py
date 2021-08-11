@@ -4,8 +4,9 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
 import models
+from models.review import Review
 
-place_amenity = Table('association', Base.metadata,
+place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60), ForeignKey(
                           'places.id'), primary_key=True, nullable=False),
                       Column('amenity_id', String(60),
@@ -45,10 +46,20 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
     if models.STORAGE_TYPE == 'db':
-
         amenities = relationship("Amenity", secondary=place_amenity,
                                  viewonly=False)
+        reviews = relationship("Review", backref="place",
+                               cascade="all, delete, delete-orphan")
     else:
+        @property
+        def reviews(self):
+            inst_reviews = []
+            all_reviews = models.storage.all(Review)
+            for review in all_reviews.values():
+                if review.place_id == self.id:
+                    inst_reviews.append(review)
+            return inst_reviews
+
         @property
         def amenities(self):
             """
