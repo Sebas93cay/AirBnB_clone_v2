@@ -46,7 +46,7 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
     if models.STORAGE_TYPE == 'db':
-        from models.amenity import Amenity
+        
         amenities = relationship("Amenity", secondary=place_amenity,
                                  viewonly=False)
         reviews = relationship("Review", backref="place",
