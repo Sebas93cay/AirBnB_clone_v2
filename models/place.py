@@ -46,6 +46,7 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
     if models.STORAGE_TYPE == 'db':
+        from models.amenity import Amenity
         amenities = relationship("Amenity", secondary=place_amenity,
                                  viewonly=False)
         reviews = relationship("Review", backref="place",
@@ -59,8 +60,6 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     inst_reviews.append(review)
             return inst_reviews
-
-        from models.amenity import Amenity
 
         @property
         def amenities(self):
