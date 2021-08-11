@@ -341,6 +341,10 @@ class HBNBCommand(cmd.Cmd):
 
 
 def isFloat(text):
+    """
+    return True if text is can be turned into float,
+    False otherwise
+    """
     try:
         float(text)
     except ValueError:
@@ -349,6 +353,10 @@ def isFloat(text):
 
 
 def isInt(text):
+    """
+    return True if text is can be turned into int,
+    False otherwise
+    """
     try:
         int(text)
     except:
@@ -357,6 +365,7 @@ def isInt(text):
 
 
 def valueValue(value):
+    """return the value of the parameter acordin to its string"""
     if isInt(value):
         return int(value)
     if isFloat(value):

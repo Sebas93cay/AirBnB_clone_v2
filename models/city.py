@@ -5,7 +5,6 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 
-
 class City(BaseModel, Base):
     """ The city class, contains state ID and name """
     __tablename__ = "cities"
@@ -18,4 +17,4 @@ class City(BaseModel, Base):
                       nullable=False)
 
     places = relationship("Place", backref="cities",
-                            cascade = "all, delelete-orphan")
+                          cascade="all, delelete-orphan")
