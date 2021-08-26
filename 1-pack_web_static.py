@@ -6,10 +6,11 @@ using the function do_pack
 """
 
 
-from datetime import date, datetime
-import tarfile
+from datetime import datetime
 import os
 import os.path
+import tarfile
+from fabric.api import local
 
 
 def do_pack():
@@ -24,16 +25,15 @@ def do_pack():
                                                          time.hour,
                                                          time.minute,
                                                          time.second)
-    source = "web_staticdr"
+    source = "web_static"
     try:
         os.mkdir('versions')
     except FileExistsError:
         pass
+    # local("tar -czvf {} {}".format(name, source))
+
     try:
         with tarfile.open(name, "w:gz") as tar:
             tar.add(source, arcname=os.path.basename(source))
     except FileNotFoundError:
         return None
-
-
-do_pack()
