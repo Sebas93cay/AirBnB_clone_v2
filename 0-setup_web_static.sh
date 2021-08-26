@@ -1,14 +1,24 @@
 #!/usr/bin/env bash
 #This script sets up your web servers for the deployment of web_static
-sudo apt -y update
-sudo apt -y install nginx
+if [ "$(which nginx | wc -c)" == 0 ]
+then
+	sudo apt -y update
+	sudo apt -y install nginx
+fi
 
 sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
-sudo echo "simple test message" | sudo tee /data/web_static/releases/test/index.html
+printf "<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>
+" | sudo tee /data/web_static/releases/test/index.html
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
-sudo chown ubuntu:ubuntu /data/
+sudo chown -R ubuntu:ubuntu /data/
 
 
 mkdir -p /var/www/holberton
