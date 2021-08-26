@@ -9,7 +9,7 @@ using the function do_pack
 from datetime import datetime
 import os
 import os.path
-import tarfile
+# import tarfile
 from fabric.api import local
 
 
@@ -30,10 +30,14 @@ def do_pack():
         os.mkdir('versions')
     except FileExistsError:
         pass
-    # local("tar -czvf {} {}".format(name, source))
-
     try:
-        with tarfile.open(name, "w:gz") as tar:
-            tar.add(source, arcname=os.path.basename(source))
-    except FileNotFoundError:
+        local("tar -czvf {} {}".format(name, source))
+        return name
+    except:
         return None
+
+    # try:
+    # with tarfile.open(name, "w:gz") as tar:
+    # tar.add(source, arcname=os.path.basename(source))
+    # except FileNotFoundError:
+    # return None
