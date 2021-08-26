@@ -46,6 +46,7 @@ class DBStorage:
             for obj in objs:
                 key = obj.__class__.__name__ + '.' + obj.id
                 dct[key] = obj
+        self.reload()
         return (dct)
 
     def new(self, obj):
@@ -63,8 +64,8 @@ class DBStorage:
 
     def reload(self):
         """Reload all tables"""
-        if self.__session:
-            self.__session.close()
+        # if self.__session:
+        # self.__session.close()
 
         Base.metadata.create_all(self.__engine)
         factory = sessionmaker(bind=self.__engine,

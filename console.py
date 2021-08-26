@@ -175,7 +175,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all()[key])
         except KeyError:
             print("** no instance found **")
 
@@ -219,7 +219,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        storage.reload()
+        # storage.reload()
         print_list = []
 
         if args:
@@ -243,7 +243,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
+        for k, v in storage.all().items():
             if args == k.split('.')[0]:
                 count += 1
         print(count)
@@ -333,7 +333,15 @@ class HBNBCommand(cmd.Cmd):
                 # update dictionary with name, value pair
                 new_dict.__dict__.update({att_name: att_val})
 
-        new_dict.save()  # save updates to file
+        print(new_dict)
+        print(storage._DBStorage__session.dirty)
+        print(key)
+        print(new_dict == storage.all()[key])
+        llamado_deNuevo = storage._DBStorage__session.query(State).one()
+        print("llamado de nuevo:")
+        print(llamado_deNuevo)
+        storage._DBStorage__session.commit()
+        new_dict.save(new=False)  # save updates to file
 
     def help_update(self):
         """ Help information for the update class """
