@@ -25,7 +25,7 @@ def do_pack():
     except FileExistsError:
         pass
     try:
-        local("tar -czvf {} {}".format(name, source))
+        local("tar -czf {} {}".format(name, source))
         return name
     except Exception:
         return None
@@ -42,7 +42,7 @@ def do_deploy(archive_path):
             namefile.split(".")[0])
         run("sudo rm -rf {}".format(uncompressFolder))
         run("sudo mkdir -p {}".format(uncompressFolder))
-        run("sudo tar -xzvf /tmp/{} -C {}".format(namefile, uncompressFolder))
+        run("sudo tar -xzf /tmp/{} -C {}".format(namefile, uncompressFolder))
         run("sudo mv {}web_static/* {}".format(uncompressFolder,
             uncompressFolder))
         run("sudo rm -rf {}web_static".format(uncompressFolder))
