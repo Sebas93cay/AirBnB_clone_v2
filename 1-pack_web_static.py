@@ -19,12 +19,7 @@ def do_pack():
     of the web_static folder
     """
     time = datetime.now()
-    name = "versions/web_static_{}{}{}{}{}{}.tgz".format(time.year,
-                                                         time.month,
-                                                         time.day,
-                                                         time.hour,
-                                                         time.minute,
-                                                         time.second)
+    name = "versions/web_static_{}.tgz".format(time.strftime("%Y%m%d%H%M%S"))
     source = "web_static"
     try:
         os.mkdir('versions')
@@ -33,7 +28,7 @@ def do_pack():
     try:
         local("tar -czvf {} {}".format(name, source))
         return name
-    except:
+    except Exception:
         return None
 
     # try:
