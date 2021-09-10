@@ -11,5 +11,10 @@ def hello_world():
     return 'Hello HBNB!'
 
 
+@app.route('/hbnb')
+def HBNB():
+    return 'HBNB'
+
+
 if __name__ == "__main__":
     app.run(debug=True)
