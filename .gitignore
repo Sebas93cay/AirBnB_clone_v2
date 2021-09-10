@@ -6,4 +6,5 @@ createTestDocker
 createDockertest
 setServers
 versions/
+main.py
 

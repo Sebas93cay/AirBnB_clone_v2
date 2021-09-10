@@ -62,3 +62,6 @@ class FileStorage:
         if obj is not None:
             if(issubclass(type(obj), BaseModel)):
                 obj.delete()
+
+    def close(self):
+        self.reload()
