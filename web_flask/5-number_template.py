@@ -4,30 +4,29 @@ from flask import Flask, abort
 from flask.templating import render_template
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route('/')
+@app.route('/', strict_slashes=False)
 def hello_world():
     """Hello World"""
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb')
+@app.route('/hbnb', strict_slashes=False)
 def HBNB():
     """HBNB"""
     return 'HBNB'
 
 
-@app.route('/c/<string:text>')
+@app.route('/c/<string:text>', strict_slashes=False)
 def cRoute(text):
     """Route for c"""
     text = text.replace('_', ' ')
     return "C {}".format(text)
 
 
-@app.route('/python/')
-@app.route('/python/<string:text>')
+@app.route('/python/', strict_slashes=False)
+@app.route('/python/<string:text>', strict_slashes=False)
 def pythonRoute(text='is cool'):
     """route for python"""
     text = text.replace('_', ' ')
@@ -35,7 +34,7 @@ def pythonRoute(text='is cool'):
     return "Python {}".format(text)
 
 
-@app.route('/number/<string:n>')
+@app.route('/number/<string:n>', strict_slashes=False)
 def number(n):
     """route for n"""
     if n.isnumeric():
@@ -43,10 +42,9 @@ def number(n):
     abort(404)
 
 
-@app.route('/number_template/<n>')
+@app.route('/number_template/<n>', strict_slashes=False)
 def number_template(n):
     """Route for number template"""
-    print('el que es')
     if n.isnumeric():
         return render_template('5-number.html', n=n)
     abort(404)

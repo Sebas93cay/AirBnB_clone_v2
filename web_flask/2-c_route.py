@@ -4,22 +4,21 @@
 from flask import Flask
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route('/')
+@app.route('/', strict_slashes=False)
 def hello_world():
     """Hello World"""
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb')
+@app.route('/hbnb', strict_slashes=False)
 def HBNB():
     """HBNB"""
     return 'HBNB'
 
 
-@app.route('/c/<string:text>')
+@app.route('/c/<string:text>', strict_slashes=False)
 def cRoute(text):
     """Route for c"""
     text = text.replace('_', ' ')
