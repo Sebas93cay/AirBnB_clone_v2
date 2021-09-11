@@ -24,9 +24,9 @@ def cRoute(text):
     return "C {}".format(text)
 
 
-@app.route('/python/', strict_slashes=False)
+@app.route('/python/', strict_slashes=False, defaults={'text': 'is cool'})
 @app.route('/python/<string:text>', strict_slashes=False)
-def pythonRoute(text='is cool'):
+def pythonRoute(text):
     """route for python"""
     text = text.replace('_', ' ')
     print("super duper")
