@@ -15,9 +15,9 @@ app = Flask(__name__)
 @app.teardown_appcontext
 def teardown_db(exeption):
     storage.close()
-    # db = g.pop('db', None)
-    # if db is not None:
-    # db.close()
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
 
 
 @app.route('/states_list', strict_slashes=False)
