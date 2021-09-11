@@ -29,7 +29,6 @@ def cRoute(text):
 def pythonRoute(text):
     """route for python"""
     text = text.replace('_', ' ')
-    print("super duper")
     return "Python {}".format(text)
 
 
