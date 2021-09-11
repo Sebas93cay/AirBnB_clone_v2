@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""This script starts a simple server"""
 
 from flask import Flask
 
@@ -8,16 +9,19 @@ app.url_map.strict_slashes = False
 
 @app.route('/')
 def hello_world():
+    """Hello World"""
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb')
 def HBNB():
+    """HBNB"""
     return 'HBNB'
 
 
 @app.route('/c/<string:text>')
 def cRoute(text):
+    """Route for c"""
     text = text.replace('_', ' ')
     return "C {}".format(text)
 
