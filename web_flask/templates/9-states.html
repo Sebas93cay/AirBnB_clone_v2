@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+		<H1>{{title}}</H1>
+		{% if title.startswith('State:') %}
+		<H3>Cities:</H3>
+		{% endif %}
+		{%- if items -%}
+        <UL>
+			{% for item in items %}
+			<LI>{{item.id}}: <B>{{item.name}}</B></LI>
+			{% endfor %}
+        </UL>
+		{% endif %}
+    </BODY>
+</HTML>
