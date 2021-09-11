@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""This script starts a simple server"""
 
 from flask import Flask
 
