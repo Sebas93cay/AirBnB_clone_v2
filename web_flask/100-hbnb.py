@@ -29,7 +29,8 @@ def hbnb():
               'August', 'September', 'October', 'November', 'December']
     states = storage.all(State).values()
     amenities = storage.all(Amenity)
-    places = storage.all(Place).values()
+    places = list(storage.all(Place).values())
+    places.sort(key=lambda x: x.name)
     users = storage.all(User)
     place_users = []
     place_amenities = []
