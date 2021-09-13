@@ -3,7 +3,7 @@
 This scripts tarts a Flask web application that shows a list of states
 """
 
-from flask import Flask, g
+from flask import Flask
 from flask.templating import render_template
 
 from models import storage
@@ -13,11 +13,9 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown_db(exeption):
+def teardown_db(self):
+    """Close db"""
     storage.close()
-    db = g.pop('db', None)
-    if db is not None:
-        db.close()
 
 
 @app.route('/cities_by_states', strict_slashes=False)
