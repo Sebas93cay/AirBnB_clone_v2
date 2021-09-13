@@ -43,7 +43,7 @@ class Place(BaseModel, Base):
                       default=0)
     longitude = Column(Float, nullable=True,
                        default=0)
-    amenity_ids = []
+    amenities = []
 
     if models.STORAGE_TYPE == 'db':
         
@@ -66,7 +66,7 @@ class Place(BaseModel, Base):
             """
             return amenity_id
             """
-            return self.amenity_ids
+            return self.amenities
 
         @amenities.setter
         def amenities(self, amenity):
@@ -74,4 +74,4 @@ class Place(BaseModel, Base):
             update amenity list
             """
             if type(amenity).__name__ == 'Amenity':
-                self.amenity_ids.append(amenity.id)
+                self.amenities.append(amenity)
