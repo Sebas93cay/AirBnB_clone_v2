@@ -24,8 +24,6 @@ def teardown_db(exeption):
 @app.route('/states/<string:id>', strict_slashes=False)
 def states(id=None):
     states = storage.all(State)
-    print(id)
-    print(states.keys())
     if id is None:
         return render_template('9-states.html', title='States',
                                items=states.values())
