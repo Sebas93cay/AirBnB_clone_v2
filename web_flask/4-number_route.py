@@ -37,7 +37,7 @@ def pythonRoute(text='is cool'):
 def number(n):
     """route for n"""
     if n.isnumeric():
-        return "n is a number"
+        return "{} is a number".format(n)
     abort(404)
 
 
